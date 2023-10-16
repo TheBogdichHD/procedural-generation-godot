@@ -1,0 +1,25 @@
+{
+"water": {
+	"atlas_coords": [0,0],
+	"weight": 1,
+	"valid_neighbours": ["water", "sand"]
+},
+
+"sand": {
+	"atlas_coords": [1,0],
+	"weight": 1,
+	"valid_neighbours": ["water", "sand", "grass"]
+},
+
+"grass": {
+	"atlas_coords": [2,0],
+	"weight": 1,
+	"valid_neighbours": ["sand", "grass", "tree"]
+},
+
+"tree": {
+	"atlas_coords": [3,0],
+	"weight": 1,
+	"valid_neighbours": ["grass", "tree"]
+}
+}

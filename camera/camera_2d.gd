@@ -5,6 +5,7 @@ extends Camera2D
 @export var zoom_lower_bound: float = 0
 @export var zoom_upper_bound: float = 2
 
+
 func _process(_delta: float) -> void:
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
 	position += direction * move_speed

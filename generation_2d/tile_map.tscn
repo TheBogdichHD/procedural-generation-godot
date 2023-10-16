@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://dt34kiqg1md35"]
+
+[ext_resource type="Texture2D" uid="uid://b62grwik057p5" path="res://assets/sprites/enviroment.png" id="1_dilxp"]
+[ext_resource type="Script" path="res://generation_2d/wave_function_collapse.gd" id="2_q8olu"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tv1uj"]
+resource_name = "Base"
+texture = ExtResource("1_dilxp")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_t1861"]
+sources/0 = SubResource("TileSetAtlasSource_tv1uj")
+
+[node name="TileMap" type="TileMap"]
+tile_set = SubResource("TileSet_t1861")
+format = 2
+layer_0/name = "Ground"
+script = ExtResource("2_q8olu")

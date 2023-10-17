@@ -9,7 +9,7 @@ var wave_function: Array
 var stack: Array
 var prototype_data: Dictionary
 var all_weights: Array[Array]
-var start_entropy = 5
+var start_entropy = 6
 
 func _ready() -> void:
 	var arr: Array
@@ -42,10 +42,6 @@ func fill_grid() -> void:
 				var atlas_coords = prototype_data[data[0]]["atlas_coords"]
 				tile_map.set_cell(0, Vector2i(x, y) + start_cell, 0, Vector2i(atlas_coords[0], atlas_coords[1]))
 
-#func generate_random() -> void:
-#	for i in range(start_cell.x, start_cell.x + size.x):
-#		for j in range(start_cell.y, start_cell.y + size.y):
-#			set_cell(0, Vector2i(i,j), 0, Vector2i(rng.randi_range(0,3), 0))
 
 func load_prototype_data() -> void:
 	var file_data = FileAccess.open("res://prototype_data.json", FileAccess.READ)
@@ -67,6 +63,7 @@ func collapse() -> void:
 	while not is_collapsed():
 		iterate()
 
+
 func is_collapsed() -> bool:
 	for y in wave_function:
 		for x in y:
@@ -82,6 +79,24 @@ func iterate():
 
 
 func get_min_entropy_coords() -> Vector2i:
+	var min_entropy = start_entropy
+	
+	for y in wave_function:
+		for x in y:
+			if x.size() > 1:
+				min_entropy = min(min_entropy, x.size())
+	
+	var min_cords: Array
+	
+	for y in range(0, size.y):
+		for x in range(0, size.x):
+			if wave_function[y][x].size() == min_entropy:
+				min_cords.append(Vector2i(x, y))
+	
+	return min_cords.pick_random()
+
+
+func get_weighted_min_entropy_coords() -> Vector2i:
 	var min_entropy = 100
 	
 	var j = -1

@@ -15,8 +15,8 @@ func _init(size_x, size_y):
 		var tiles = []
 		for x in range(size_x):
 			var tile = Tile.new()
-			tiles.append(tile.duplicate())
-		tile_rows.append(tiles.duplicate())
+			tiles.append(tile)
+		tile_rows.append(tiles)
 	
 	for y in range(size_y):
 		for x in range(size_x):

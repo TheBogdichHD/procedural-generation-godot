@@ -30,4 +30,4 @@ func fill_tile_map():
 						tile_map.set_cell(1, Vector2i(x+start_x, y+start_y), 1, atlas_coords)
 						tile_map.set_cell(0, Vector2i(x+start_x, y+start_y), 1, Vector2i(0,0))
 		
-		#await get_tree().create_timer(wait_time).timeout 
+		await get_tree().create_timer(wait_time).timeout 

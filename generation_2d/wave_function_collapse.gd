@@ -8,8 +8,17 @@ var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var wave_function: Array
 var stack: Array
 var prototype_data: Dictionary
+var all_weights: Array[Array]
+var start_entropy = 5
 
 func _ready() -> void:
+	var arr: Array
+	for x in range(0, size.x):
+		arr.append(start_entropy)
+	
+	for y in range(0, size.y):
+		all_weights.append(arr.duplicate())
+		
 	wave_function_collapse()
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -73,18 +82,35 @@ func iterate():
 
 
 func get_min_entropy_coords() -> Vector2i:
-	var min_entropy = 5
+	var min_entropy = 100
 	
+	var j = -1
+	var i = -1
 	for y in wave_function:
+		j += 1
 		for x in y:
+			i += 1
 			if x.size() > 1:
-				min_entropy = min(min_entropy, x.size())
+				var weights = []
+				for t in x:
+					weights.append(prototype_data[t]["weight"])
+				var calc = 0
+				var sum = 0
+				for t in weights:
+					sum += t
+					min_entropy -= t * log(t)
+				calc /= sum
+				calc += log(sum)
+				min_entropy = min(min_entropy, calc)
+				all_weights[j][i] = min_entropy
+		i = -1
+	
 	
 	var min_cords: Array
 	
-	for y in range(0, len(wave_function)):
-		for x in range(0, len(wave_function[y])):
-			if wave_function[y][x].size() == min_entropy:
+	for y in range(0, size.y):
+		for x in range(0, size.x):
+			if all_weights[y][x] == min_entropy:
 				min_cords.append(Vector2i(x, y))
 	
 	return min_cords.pick_random()

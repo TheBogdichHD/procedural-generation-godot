@@ -2,7 +2,7 @@
 "water": {
 	"atlas_coords": [0,0],
 	"weight": 1,
-	"valid_neighbours": ["water", "sand"]
+	"valid_neighbours": ["deep_water","water", "sand"]
 },
 
 "sand": {
@@ -19,7 +19,17 @@
 
 "tree": {
 	"atlas_coords": [3,0],
+	"weight": 2,
+	"valid_neighbours": ["grass", "tree", "mountain"]
+},
+"deep_water": {
+	"atlas_coords": [4,0],
 	"weight": 1,
-	"valid_neighbours": ["grass", "tree"]
+	"valid_neighbours": ["deep_water", "water"]
+},
+"mountain": {
+	"atlas_coords": [0,1],
+	"weight":1,
+	"valid_neighbours": ["mountain", "tree"]
 }
 }

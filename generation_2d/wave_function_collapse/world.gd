@@ -11,15 +11,15 @@ func _init(size_x, size_y):
 	cols = size_x
 	rows = size_y
 	
-	for y in range(size_y):
+	for y in size_y:
 		var tiles = []
-		for x in range(size_x):
-			var tile = Tile.new()
+		for x in size_x:
+			var tile = Tile.new(tile_info)
 			tiles.append(tile)
 		tile_rows.append(tiles)
 	
-	for y in range(size_y):
-		for x in range(size_x):
+	for y in size_y:
+		for x in size_x:
 			var tile = tile_rows[y][x]
 			if y > 0:
 				tile.add_neighbour(tile_info.NORTH, tile_rows[y - 1][x])
@@ -55,8 +55,8 @@ func get_tiles_lowest_entropy():
 	var lowest_entropy = len(tile_info.tile_rules.keys())
 	var tile_list = []
 	
-	for y in range(rows):
-		for x in range(cols):
+	for y in rows:
+		for x in cols:
 			var tile_entropy = tile_rows[y][x].entropy
 			if tile_entropy > 0:
 				if tile_entropy < lowest_entropy:

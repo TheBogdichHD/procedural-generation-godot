@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="TileInfo" load_steps=2 format=3 uid="uid://cqj8qwuj8sh0n"]
+[gd_resource type="Resource" script_class="TileInfo" load_steps=2 format=3 uid="uid://b1ebc1t0kp1ma"]
 
 [ext_resource type="Script" path="res://generation_2d/wave_function_collapse/tile_info.gd" id="1_q7d4x"]
 

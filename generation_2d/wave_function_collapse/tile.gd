@@ -1,7 +1,7 @@
 class_name Tile
 extends Node
 
-var tile_info = preload("res://generation_2d/wave_function_collapse/tile_info.tres")
+var tile_info
 var possibilities
 var entropy
 var neighbours
@@ -11,7 +11,8 @@ var random = RandomNumberGenerator.new()
 var tile_type = -1
 
 
-func _init():
+func _init(tile_info_c):
+	tile_info = tile_info_c
 	possibilities = tile_info.tile_rules.keys()
 	entropy = len(possibilities)
 	neighbours = {}
@@ -32,6 +33,26 @@ func get_directions():
 
 func get_possibilities():
 	return possibilities
+
+
+#Can't get it to work, some tiles are missing on tilemap with entropy of 1
+func get_shannon_weighted_entropy():
+	if entropy <= 0:
+		return 0
+	
+	var weights = []
+	for possibility in possibilities:
+		weights.append(tile_info.tile_weights[possibility])
+	
+	var weight_sum = 0
+	var weighted_entropy = 0
+	for t in weights:
+		weight_sum += t
+		weighted_entropy -= t * log(t)
+	weighted_entropy /= weight_sum
+	weighted_entropy += log(weight_sum)
+	
+	return weighted_entropy
 
 
 func collapse():

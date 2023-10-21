@@ -1,7 +1,7 @@
 class_name World
 extends Node
 
-var tile_info = preload("res://generation_2d/wave_function_collapse/tile_info.tres")
+var tile_info = preload("res://generation_2d/wave_function_collapse/tile_info_nature.gd").new()
 var cols
 var rows
 var tile_rows = []

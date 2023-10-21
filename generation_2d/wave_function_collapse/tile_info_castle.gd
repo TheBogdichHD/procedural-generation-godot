@@ -1,5 +1,4 @@
-class_name TileInfo
-extends Resource
+class_name TileInfoCastle
 
 
 # Directions
@@ -45,7 +44,7 @@ var TILE_FORESTNE2 = 31
 var TILE_FORESTSE2 = 32
 var TILE_FORESTSW2 = 33
 var TILE_FORESTNW2 = 34
-
+var TILE_MINE      = 35
 
 # Tile Edges
 var GRASS    = 0
@@ -91,6 +90,7 @@ var tile_rules = {
 	TILE_ROCKSE  : [GRASS, ROCK_S, ROCK_E, GRASS],
 	TILE_ROCKSW  : [GRASS, GRASS, ROCK_W, ROCK_S],
 	TILE_ROCKNW  : [ROCK_W, GRASS, GRASS, ROCK_N],
+	TILE_MINE    : [ROCK, ROCK_N, GRASS, ROCK_N],
 	TILE_FORESTN : [FOREST, FOREST_N, GRASS, FOREST_N],
 	TILE_FORESTE : [FOREST_E, FOREST, FOREST_E, GRASS],
 	TILE_FORESTS : [GRASS, FOREST_S, FOREST, FOREST_S],
@@ -142,6 +142,7 @@ var tile_weights = {
 	TILE_ROCKSE   : 4,
 	TILE_ROCKSW   : 4,
 	TILE_ROCKNW   : 4,
+	TILE_MINE     : 1,
 }
 
 
@@ -173,12 +174,13 @@ var tile_sprites = {
 	TILE_FORESTSE2: Vector2i(6, 7),
 	TILE_FORESTSW2: Vector2i(7, 7),
 	TILE_FORESTNW2: Vector2i(7, 8),
-	TILE_ROCKN   : Vector2i(1, 6),
-	TILE_ROCKE   : Vector2i(0, 5),
-	TILE_ROCKS   : Vector2i(1, 4),
-	TILE_ROCKW   : Vector2i(2, 5),
-	TILE_ROCKNE  : Vector2i(0, 6),
-	TILE_ROCKSE  : Vector2i(0, 4),
-	TILE_ROCKSW  : Vector2i(2, 4),
-	TILE_ROCKNW  : Vector2i(2, 6),
+	TILE_ROCKN   : Vector2i(12, 6),
+	TILE_ROCKE   : Vector2i(11, 5),
+	TILE_ROCKS   : Vector2i(12, 4),
+	TILE_ROCKW   : Vector2i(13, 5),
+	TILE_ROCKNE  : Vector2i(11, 6),
+	TILE_ROCKSE  : Vector2i(11, 4),
+	TILE_ROCKSW  : Vector2i(13, 4),
+	TILE_ROCKNW  : Vector2i(13, 6),
+	TILE_MINE    : Vector2i(19, 5),
 }

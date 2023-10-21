@@ -1,18 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dt34kiqg1md35"]
+[gd_scene load_steps=5 format=3 uid="uid://dt34kiqg1md35"]
 
-[ext_resource type="Texture2D" uid="uid://b62grwik057p5" path="res://assets/sprites/enviroment.png" id="1_dilxp"]
 [ext_resource type="Texture2D" uid="uid://b8yxdfllyemuq" path="res://assets/sprites/punyworld-overworld-tileset.png" id="2_85w8o"]
 [ext_resource type="Script" path="res://generation_2d/wave_function_collapse/wfc.gd" id="3_wuger"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tv1uj"]
-resource_name = "Base"
-texture = ExtResource("1_dilxp")
-0:0/0 = 0
-1:0/0 = 0
-2:0/0 = 0
-3:0/0 = 0
-4:0/0 = 0
-0:1/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bk2ox"]
 texture = ExtResource("2_85w8o")
@@ -562,6 +551,7 @@ texture = ExtResource("2_85w8o")
 13:28/0 = 0
 14:28/0 = 0
 15:28/0 = 0
+16:28/next_alternative_id = 3
 16:28/0 = 0
 17:28/0 = 0
 18:28/0 = 0
@@ -713,8 +703,7 @@ texture = ExtResource("2_85w8o")
 19:37/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_t1861"]
-sources/0 = SubResource("TileSetAtlasSource_tv1uj")
-sources/1 = SubResource("TileSetAtlasSource_bk2ox")
+sources/0 = SubResource("TileSetAtlasSource_bk2ox")
 
 [node name="TileMap" type="TileMap"]
 tile_set = SubResource("TileSet_t1861")

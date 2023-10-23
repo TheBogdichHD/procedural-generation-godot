@@ -1,15 +1,16 @@
 class_name World
 extends Node
 
-var tile_info = preload("res://generation_2d/wave_function_collapse/tile_info_nature.gd").new()
+var tile_info
 var cols
 var rows
 var tile_rows = []
 
 
-func _init(size_x, size_y):
+func _init(size_x, size_y, tile_info_c):
 	cols = size_x
 	rows = size_y
+	tile_info = tile_info_c
 	
 	for y in size_y:
 		var tiles = []
@@ -39,26 +40,15 @@ func get_type(x, y):
 	return tile_rows[y][x].tile_type
 
 
-func get_lowest_entropy():
-	var lowest_entropy = len(tile_info.tile_rules.keys())
-	for y in range(rows):
-		for x in range(cols):
-			var tile_entropy = tile_rows[y][x].entropy
-			if tile_entropy > 0:
-				if tile_entropy < lowest_entropy:
-					lowest_entropy = tile_entropy
-	
-	return lowest_entropy
-
-
 func get_tiles_lowest_entropy():
-	var lowest_entropy = len(tile_info.tile_rules.keys())
+	var lowest_entropy = 99999999
 	var tile_list = []
 	
 	for y in rows:
 		for x in cols:
-			var tile_entropy = tile_rows[y][x].entropy
-			if tile_entropy > 0:
+			var tile_entropy = tile_rows[y][x].get_weighted_entropy()
+			
+			if tile_rows[y][x].entropy > 0:
 				if tile_entropy < lowest_entropy:
 					tile_list.clear()
 					lowest_entropy = tile_entropy

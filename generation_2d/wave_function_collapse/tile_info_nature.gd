@@ -1,12 +1,10 @@
-class_name TileInfoNature
-
-
 # Directions
 var NORTH = 0
 var EAST  = 1
 var SOUTH = 2
 var WEST  = 3
 
+var NEEDS_GRASS   = 15
 
 # Tile Types
 var TILE_GRASS    = 0
@@ -142,7 +140,7 @@ var tile_weights = {
 	TILE_ROCKSE   : 4,
 	TILE_ROCKSW   : 4,
 	TILE_ROCKNW   : 4,
-	TILE_MINE     : 1,
+	TILE_MINE     : 2,
 }
 
 

@@ -6,7 +6,6 @@ var possibilities
 var entropy
 var neighbours
 
-var total_weight = 0.0
 var random = RandomNumberGenerator.new()
 var tile_type = -1
 
@@ -35,22 +34,12 @@ func get_possibilities():
 	return possibilities
 
 
-#Can't get it to work, some tiles are missing on tilemap with entropy of 1
-func get_shannon_weighted_entropy():
-	if entropy <= 0:
-		return 0
-	
-	var weights = []
-	for possibility in possibilities:
-		weights.append(tile_info.tile_weights[possibility])
-	
-	var weight_sum = 0
+func get_weighted_entropy():
 	var weighted_entropy = 0
-	for t in weights:
-		weight_sum += t
-		weighted_entropy -= t * log(t)
-	weighted_entropy /= weight_sum
-	weighted_entropy += log(weight_sum)
+	
+	for possibility in possibilities:
+		var weight = tile_info.tile_weights[possibility]
+		weighted_entropy += weight * log(weight)
 	
 	return weighted_entropy
 

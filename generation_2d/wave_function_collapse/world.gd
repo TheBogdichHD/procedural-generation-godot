@@ -35,6 +35,16 @@ func _init(size_x, size_y, tile_info_c):
 func get_entropy(x, y):
 	return tile_rows[y][x].entropy
 
+func get_lowest_entropy():
+	var lowest_entropy = len(tile_info.tile_rules.keys())
+	for y in range(rows):
+		for x in range(cols):
+			var tile_entropy = tile_rows[y][x].entropy
+			if tile_entropy > 0:
+				if tile_entropy < lowest_entropy:
+					lowest_entropy = tile_entropy
+	
+	return lowest_entropy
 
 func get_type(x, y):
 	return tile_rows[y][x].tile_type

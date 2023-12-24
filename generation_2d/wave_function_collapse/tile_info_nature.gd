@@ -140,7 +140,7 @@ var tile_weights = {
 	TILE_ROCKSE   : 4,
 	TILE_ROCKSW   : 4,
 	TILE_ROCKNW   : 4,
-	TILE_MINE     : 2,
+	TILE_MINE     : 1,
 }
 
 

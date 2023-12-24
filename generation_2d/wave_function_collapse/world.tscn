@@ -6,6 +6,8 @@
 [node name="World" type="Node2D"]
 
 [node name="TileMap" parent="." instance=ExtResource("1_cmus5")]
-tile_info_name = "res://generation_2d/wave_function_collapse/tile_info_nature.gd"
+world_w = 40
+interactive = false
+tile_info_name = "res://generation_2d/wave_function_collapse/tile_info_bridges.gd"
 
 [node name="Camera2D" parent="." instance=ExtResource("2_1cfgv")]

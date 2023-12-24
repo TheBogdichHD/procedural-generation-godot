@@ -84,9 +84,17 @@ func constrain(neighbourPossibilities, direction):
 		if direction == tile_info.SOUTH: opposite = tile_info.NORTH
 		if direction == tile_info.WEST:  opposite = tile_info.EAST
 		
-		for possibility in possibilities.duplicate():
-			if tile_info.tile_rules[possibility][opposite] not in connectors:
-				possibilities.erase(possibility)
+		var mapped_connectors = connectors.map(func(str): return str[0])
+		
+		var len = len(possibilities)
+		for i in range(len - 1, -1, -1):
+			var tile_pos = tile_info.tile_rules[possibilities[i]][opposite]
+			if tile_pos.contains('x'):
+				if tile_pos in connectors:
+					possibilities.remove_at(i)
+					reduced = true
+			elif tile_pos not in mapped_connectors:
+				possibilities.remove_at(i)
 				reduced = true
 		
 		entropy = len(possibilities)

@@ -7,10 +7,11 @@ signal left_click
 @export var world_w = 50
 @export var world_h = 30
 @export var wait_time = 0.00
-@export var interactive = true
-@export var tile_info_name = ""
+@export var interactive = false
+@export var instant = false
+@export var tile_info_name = "res://generation_2d/wave_function_collapse/tile_info_nature.gd"
 
-var entropy_text = preload("res://z_archive/entropy_text.tscn")
+var entropy_text = preload("res://generation_2d/wave_function_collapse/entropy_text.tscn")
 var tile_info
 var tile_map = self
 var world
@@ -46,9 +47,14 @@ func _unhandled_input(event):
 
 func fill_tile_map():
 	if not interactive:
-		while world.wave_function_collapse():
-			pass
-		draw_world()
+		if not instant:
+			while world.wave_function_collapse():
+				await get_tree().create_timer(wait_time).timeout
+				draw_world()
+		else:
+			while world.wave_function_collapse():
+				pass
+			draw_world()
 	else:
 		while world.wave_function_collapse():
 			draw_world()

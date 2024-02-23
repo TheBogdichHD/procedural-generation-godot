@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dt34kiqg1md35"]
 
-[ext_resource type="Texture2D" uid="uid://b8yxdfllyemuq" path="res://assets/sprites/punyworld-overworld-tileset.png" id="2_85w8o"]
+[ext_resource type="Texture2D" uid="uid://b8yxdfllyemuq" path="res://generation_2d/assets/sprites/punyworld-overworld-tileset.png" id="2_85w8o"]
 [ext_resource type="Script" path="res://generation_2d/wave_function_collapse/wfc.gd" id="3_wuger"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bk2ox"]

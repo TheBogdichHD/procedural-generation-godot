@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxr7ohwn74ryg"]
+
+[ext_resource type="Script" path="res://generation_3d/scripts/module.gd" id="1_5gw20"]
+[ext_resource type="ArrayMesh" uid="uid://dklmwfpfqu02h" path="res://generation_3d/meshes/wfc_module_0.res" id="2_tn6c7"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_r74ya"]
+
+[node name="Module" type="Node3D"]
+script = ExtResource("1_5gw20")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_tn6c7")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_r74ya")

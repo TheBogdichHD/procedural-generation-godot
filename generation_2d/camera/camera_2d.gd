@@ -7,7 +7,7 @@ extends Camera2D
 
 
 func _process(_delta: float) -> void:
-	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
+	var direction = Input.get_vector("move_left", "move_right", "move_forward", "move_backward").normalized()
 	position += direction * move_speed
 
 

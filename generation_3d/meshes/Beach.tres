@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bde128ixb0uhs"]
+
+[resource]
+resource_name = "Beach"
+specular_mode = 2
+disable_ambient_light = true
+albedo_color = Color(0.709804, 0.607843, 0.447059, 1)

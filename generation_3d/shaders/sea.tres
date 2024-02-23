@@ -1,0 +1,31 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://bpkox1ech63r5"]
+
+[ext_resource type="Shader" path="res://generation_3d/shaders/water_shader.gdshader" id="1_rftrl"]
+[ext_resource type="Texture2D" uid="uid://cytp5e6r3l23o" path="res://generation_3d/textures/water_mask.png" id="2_su50w"]
+[ext_resource type="Texture2D" uid="uid://4mfpfck2ur25" path="res://generation_3d/textures/noisetexture.tres" id="3_53mus"]
+
+[sub_resource type="Gradient" id="Gradient_ewprb"]
+offsets = PackedFloat32Array(0, 0.49, 1)
+colors = PackedColorArray(0.262745, 0.466667, 0.658824, 1, 0.266667, 0.341176, 0.670588, 1, 0.803922, 0.894118, 0.980392, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_stmvv"]
+gradient = SubResource("Gradient_ewprb")
+width = 2048
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_rftrl")
+shader_parameter/tilingA = 10.0
+shader_parameter/tilingB = 22.223
+shader_parameter/scroll_speedA = Vector2(0.017, 0)
+shader_parameter/scroll_speedB = Vector2(0, 0.03)
+shader_parameter/noise_scale = 0.105
+shader_parameter/noise_scale2 = 0.422
+shader_parameter/displacement_amplitude = 0.155
+shader_parameter/displacement_scroll_speed = 0.058
+shader_parameter/test = 4.6
+shader_parameter/test2 = 3.68
+shader_parameter/test3 = 5.702
+shader_parameter/mask = ExtResource("2_su50w")
+shader_parameter/gradient = SubResource("GradientTexture1D_stmvv")
+shader_parameter/noise = ExtResource("3_53mus")

@@ -1,13 +1,24 @@
-[gd_scene load_steps=8 format=3 uid="uid://ckofsts66b2ht"]
+[gd_scene load_steps=10 format=3 uid="uid://ckofsts66b2ht"]
 
 [ext_resource type="Script" path="res://generation_3d/scripts/wfc3d_main.gd" id="1_0vuqo"]
 [ext_resource type="Script" path="res://generation_3d/scripts/camera3d.gd" id="2_ohlah"]
 [ext_resource type="Script" path="res://generation_3d/scripts/cam_focus.gd" id="3_4vntv"]
-[ext_resource type="ArrayMesh" uid="uid://d0b5li416rf5p" path="res://generation_3d/meshes/wfc_module_5.res" id="4_abq65"]
-[ext_resource type="Material" uid="uid://bpkox1ech63r5" path="res://generation_3d/shaders/sea.tres" id="5_igw8u"]
+[ext_resource type="ArrayMesh" uid="uid://c3burhh4bf8k7" path="res://generation_3d/meshes/wfc_module_3.res" id="4_mcy8h"]
+[ext_resource type="Material" uid="uid://bpkox1ech63r5" path="res://generation_3d/shaders/sea_material.tres" id="5_igw8u"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b023f"]
+
+[sub_resource type="Sky" id="Sky_3voqy"]
+sky_material = SubResource("ProceduralSkyMaterial_b023f")
 
 [sub_resource type="Environment" id="Environment_cqs1t"]
+background_mode = 2
+sky = SubResource("Sky_3voqy")
+ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
+reflected_light_source = 2
+tonemap_mode = 3
+sdfgi_enabled = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_hpjv6"]
 size = Vector2(80, 80)
@@ -16,9 +27,11 @@ subdivide_depth = 150
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_0vuqo")
+update = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.834)
+current = true
 fov = 30.0
 script = ExtResource("2_ohlah")
 
@@ -40,14 +53,15 @@ environment = SubResource("Environment_cqs1t")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.78152, -0.48893, 0.387521, 0, 0.621148, 0.783693, -0.62388, -0.612472, 0.48544, 0, 0, 0)
+light_energy = 0.8
 shadow_enabled = true
 directional_shadow_max_distance = 300.0
 
 [node name="ReferenceMesh" type="MeshInstance3D" parent="."]
 visible = false
-mesh = ExtResource("4_abq65")
+mesh = ExtResource("4_mcy8h")
 
 [node name="Sea" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.115, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.12, 0)
 mesh = SubResource("PlaneMesh_hpjv6")
 surface_material_override/0 = ExtResource("5_igw8u")

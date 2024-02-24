@@ -3,5 +3,4 @@
 [resource]
 resource_name = "Grass"
 specular_mode = 2
-disable_ambient_light = true
 albedo_color = Color(0.14902, 0.509804, 0.360784, 1)

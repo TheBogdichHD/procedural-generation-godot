@@ -1,7 +1,8 @@
 shader_type spatial;
 
 //render_mode unshaded;
-uniform sampler2D DEPTH_TEXTURE : hint_depth_texture, filter_linear_mipmap;
+//render_mode specular_toon, cull_disabled;
+uniform sampler2D DEPTH_TEXTURE : source_color, hint_depth_texture;
 
 uniform sampler2D mask;
 uniform sampler2D gradient : source_color;
@@ -26,15 +27,19 @@ void fragment(){
 	float layerB = texture(mask, UV*tilingB + offsetB + warp).r;
 	layerA += layerB * 0.5;
 	
-	
-	
 	float depth = texture(DEPTH_TEXTURE, SCREEN_UV).r;
-	depth = depth * 2.0 - 1.0;
+	//vec3 ndc = vec3(SCREEN_UV * 2.0 - 1.0, depth);
+	//vec4 view = INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
+	//view.xyz /= view.w;
+	//float waterDepth = -view.z + VERTEX.z;
+
+
+	//depth = depth * 1.0 + 2.0;
 	float z = -PROJECTION_MATRIX[3][2] / (depth + PROJECTION_MATRIX[2][2]);
 	float delta = -(z - VERTEX.z) * test; // z is negative.
-	//float foam = 1.0 - min(max(delta, 0.0), 1.0);
+	float foam = 1.0 - min(max(delta, 0.0), 1.0);
 	
-	//layerA += foam;
+	layerA += foam;
 	layerA = max(min(layerA, 1.0), 0.0);
 	
 	layerA = 0.5;

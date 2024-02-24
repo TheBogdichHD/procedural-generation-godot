@@ -5,14 +5,14 @@ const size = Vector3(8, 3, 8)
 const unit_size = 1.0
 const mesh_string = "res://generation_3d/meshes/%s.res"
 
-var my_seed = 1
+@export var my_seed = 6
+@export var update = false
+@onready var module = preload("res://generation_3d/scenes/module.tscn")
 
 var wfc : WFC3D_Model
 var meshes : Array
 var coords : Vector3
 
-@export var update = false
-@onready var module = preload("res://generation_3d/scenes/module.tscn")
 
 
 func _ready():
@@ -41,7 +41,13 @@ func test():
 			clear_meshes()
 			visualize_wave_function()
 			await get_tree().process_frame
-		clear_meshes()
+		
+		if len(meshes) == 0:
+			my_seed += 1
+			test()
+		else:
+			clear_meshes()
+		
 	else:
 		regen_no_update()
 		

@@ -7,6 +7,8 @@
 [ext_resource type="Material" uid="uid://bpkox1ech63r5" path="res://generation_3d/shaders/sea_material.tres" id="5_igw8u"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b023f"]
+sky_top_color = Color(0.282353, 0.415686, 0.772549, 1)
+sky_horizon_color = Color(0.901961, 0.552941, 0.396078, 1)
 
 [sub_resource type="Sky" id="Sky_3voqy"]
 sky_material = SubResource("ProceduralSkyMaterial_b023f")

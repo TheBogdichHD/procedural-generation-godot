@@ -8,6 +8,7 @@ const mesh_string = "res://generation_3d/meshes/%s.res"
 @export var my_seed = 6
 @export var update = false
 @onready var module = preload("res://generation_3d/scenes/module.tscn")
+@onready var grid_map = $GridMap
 
 var wfc : WFC3D_Model
 var meshes : Array
@@ -42,7 +43,7 @@ func test():
 			visualize_wave_function()
 			await get_tree().process_frame
 		
-		if len(meshes) == 0:
+		if len(grid_map.get_meshes()) == 0:
 			my_seed += 1
 			test()
 		else:
@@ -59,7 +60,7 @@ func regen_no_update():
 		wfc.iterate()
 	
 	visualize_wave_function()
-	if len(meshes) == 0:
+	if len(grid_map.get_meshes()) == 0:
 		my_seed += 1
 		test()
 
@@ -156,17 +157,19 @@ func visualize_wave_function(only_collapsed=true):
 					if mesh_name == "-1":
 						continue
 					
-					var inst = module.instantiate()
-					meshes.append(inst)
-					add_child(inst)
-					inst.mesh = load(mesh_string % mesh_name)
-					inst.rotate_y((PI/2) * mesh_rot)
-					inst.position = Vector3(x*unit_size, y*unit_size, z*unit_size)
-					inst.prototype = {prototype: dict}
-					inst.debug_text = $DebugText
+					var rot_index
+					
+					match int(mesh_rot):
+						0: rot_index = 0
+						1: rot_index = 16
+						2: rot_index = 10
+						3: rot_index = 22
+					
+					grid_map.set_cell_item(Vector3i(x,y,z), int(mesh_name), rot_index)
 
 
 func clear_meshes():
-	for mesh in meshes:
-		mesh.queue_free()
-	meshes = []
+	grid_map.clear()
+	#for mesh in meshes:
+	#	mesh.queue_free()
+	#meshes = []

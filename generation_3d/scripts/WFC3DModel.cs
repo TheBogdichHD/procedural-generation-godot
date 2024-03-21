@@ -75,7 +75,7 @@ public partial class WFC3DModel : Node
 
 			for (int j = 0; j < Neighbours.Count; j++)
 			{
-				if (ValidNeighbours.Contains(Neighbours[j]))
+				if (!ValidNeighbours.Contains(Neighbours[j]))
 				{
 					ValidNeighbours.Add(Neighbours[j]);
 				}		

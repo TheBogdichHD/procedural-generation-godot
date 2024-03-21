@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using ItemInfoName;
-
+using System.Linq;
 
 public partial class WFC3DMain : Node
 {
@@ -18,10 +18,10 @@ public partial class WFC3DMain : Node
 	const int nZ = 5;
 
 	[Export]
-	Vector3I Size = new Vector3I(12, 3, 12);
+	Vector3I Size = new Vector3I(8, 3, 8);
 
 	[Export]
-	int Seed = 6;
+	int Seed = 0;
 	[Export] 
 	bool Update = false;
 	GridMap GridMap;
@@ -50,7 +50,7 @@ public partial class WFC3DMain : Node
 		Dictionary<string, ItemInfo> Prototypes = LoadPrototypeData();
 		WFC = new WFC3DModel();		
 		AddChild(WFC);
-		WFC.Rand = new Random(Seed.ToString().GetHashCode());
+		WFC.Rand = new Random(Seed.GetHashCode());
 		WFC.Initialize(Size, Prototypes);
 
 		ApplyCustomConstraints();
@@ -269,8 +269,8 @@ public partial class WFC3DMain : Node
 								break;
 						}
 						
-						var Name = int.Parse(MeshName);
-						GridMap.SetCellItem(new Vector3I(x,y,z), Name, RotIndex);
+						var NameInd = int.Parse(string.Join("", MeshName.ToCharArray().Where(Char.IsDigit)));
+						GridMap.SetCellItem(new Vector3I(x,y,z), NameInd, RotIndex);
 					}						
 				}				
 			}

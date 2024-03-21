@@ -1,7 +1,7 @@
 extends Node
 
 
-const size = Vector3(8, 3, 8)
+@export var size = Vector3(8, 3, 8)
 
 @export var my_seed = 6
 @export var update = false

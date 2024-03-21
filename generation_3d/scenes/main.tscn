@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://ckofsts66b2ht"]
 
-[ext_resource type="Script" path="res://generation_3d/scripts/WFC3DMain.cs" id="1_qrna6"]
-[ext_resource type="Script" path="res://generation_3d/scripts/camera3d.gd" id="2_ohlah"]
-[ext_resource type="Script" path="res://generation_3d/scripts/cam_focus.gd" id="3_4vntv"]
+[ext_resource type="Script" path="res://generation_3d/scripts/gdscript/wfc3d_main.gd" id="1_yrx7e"]
+[ext_resource type="Script" path="res://generation_3d/scripts/gdscript/camera3d.gd" id="2_ohlah"]
+[ext_resource type="Script" path="res://generation_3d/scripts/gdscript/cam_focus.gd" id="3_4vntv"]
 [ext_resource type="Material" uid="uid://bpkox1ech63r5" path="res://generation_3d/shaders/sea_material.tres" id="5_igw8u"]
 [ext_resource type="PackedScene" uid="uid://bg7j5fq0v4v7p" path="res://generation_3d/scenes/grid_map.tscn" id="6_0mo5j"]
 
@@ -29,7 +29,8 @@ subdivide_width = 150
 subdivide_depth = 150
 
 [node name="Main" type="Node3D"]
-script = ExtResource("1_qrna6")
+script = ExtResource("1_yrx7e")
+size = Vector3(20, 3, 20)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.834)

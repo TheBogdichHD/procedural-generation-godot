@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://ckofsts66b2ht"]
 
-[ext_resource type="Script" path="res://generation_3d/scripts/wfc3d_main.gd" id="1_0vuqo"]
+[ext_resource type="Script" path="res://generation_3d/scripts/wfc3d_main.gd" id="1_7c7bj"]
 [ext_resource type="Script" path="res://generation_3d/scripts/camera3d.gd" id="2_ohlah"]
 [ext_resource type="Script" path="res://generation_3d/scripts/cam_focus.gd" id="3_4vntv"]
 [ext_resource type="Material" uid="uid://bpkox1ech63r5" path="res://generation_3d/shaders/sea_material.tres" id="5_igw8u"]
@@ -29,8 +29,7 @@ subdivide_width = 150
 subdivide_depth = 150
 
 [node name="Main" type="Node3D"]
-script = ExtResource("1_0vuqo")
-update = true
+script = ExtResource("1_7c7bj")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.834)

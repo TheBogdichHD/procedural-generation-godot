@@ -2,12 +2,9 @@ extends Node
 
 
 const size = Vector3(8, 3, 8)
-const unit_size = 1.0
-const mesh_string = "res://generation_3d/meshes/%s.res"
 
 @export var my_seed = 6
 @export var update = false
-@onready var module = preload("res://generation_3d/scenes/module.tscn")
 @onready var grid_map = $GridMap
 
 var wfc : WFC3D_Model

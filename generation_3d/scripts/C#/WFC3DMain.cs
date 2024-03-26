@@ -59,8 +59,7 @@ public partial class WFC3DMain : Node
 			AddChild(WFC);
 		}
 
-		WFC.Rand = new Random(Seed.GetHashCode());
-		WFC.Initialize(Size, PrototypeData);
+		WFC.Initialize(Size, PrototypeData, Seed.GetHashCode());
 		WFC.Stack.Clear();
 
 		ApplyCustomConstraints();

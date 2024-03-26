@@ -30,7 +30,8 @@ subdivide_depth = 150
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_qrna6")
-Size = Vector3i(20, 3, 20)
+Size = Vector3i(15, 6, 15)
+Update = true
 
 [node name="SeedLabel" type="Label" parent="."]
 offset_right = 40.0

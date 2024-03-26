@@ -18,14 +18,15 @@ public partial class WFC3DModel : Node
 	public List<string>[,,] WaveFunction;
 	Vector3I Size;
 	public Stack<Vector3I> Stack = new Stack<Vector3I>();
-	public Random Rand = new Random();
+	Random Rand;
 
 
-	public void Initialize(Vector3I NewSize, Dictionary<string, ItemInfo> AllPrototypes)
+	public void Initialize(Vector3I NewSize, Dictionary<string, ItemInfo> AllPrototypes, int Seed)
 	{
 		Size = NewSize;
 		PrototypeData = AllPrototypes;
 		WaveFunction = new List<string>[Size.X, Size.Y, Size.Z];
+		Rand = new Random(Seed);
 
 		for (int z = 0; z < Size.Z; z++)
 		{

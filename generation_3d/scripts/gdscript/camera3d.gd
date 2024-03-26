@@ -12,7 +12,7 @@ var mouse_modes = [
 ]
 
 
-var move_speed = 1.0
+@export var move_speed = 1.0
 var mouse_mode = 0
 
 func _ready():

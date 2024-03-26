@@ -1,7 +1,7 @@
 extends Node3D
 
 
-var rot_speed = 10.0
+@export var rot_speed = 10.0
 
 
 func _process(delta):

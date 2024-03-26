@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://ckofsts66b2ht"]
 
-[ext_resource type="Script" path="res://generation_3d/scripts/gdscript/wfc3d_main.gd" id="1_yrx7e"]
+[ext_resource type="Script" path="res://generation_3d/scripts/C#/WFC3DMain.cs" id="1_qrna6"]
 [ext_resource type="Script" path="res://generation_3d/scripts/gdscript/camera3d.gd" id="2_ohlah"]
 [ext_resource type="Script" path="res://generation_3d/scripts/gdscript/cam_focus.gd" id="3_4vntv"]
 [ext_resource type="Material" uid="uid://bpkox1ech63r5" path="res://generation_3d/shaders/sea_material.tres" id="5_igw8u"]
@@ -29,14 +29,23 @@ subdivide_width = 150
 subdivide_depth = 150
 
 [node name="Main" type="Node3D"]
-script = ExtResource("1_yrx7e")
-size = Vector3(20, 3, 20)
+script = ExtResource("1_qrna6")
+Size = Vector3i(20, 3, 20)
+Seed = 4
+Update = true
+
+[node name="SeedLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 35
+text = "Seed: "
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.834)
 current = true
 fov = 30.0
 script = ExtResource("2_ohlah")
+move_speed = 5.0
 
 [node name="DebugText" type="RichTextLabel" parent="."]
 offset_right = 40.0
@@ -48,14 +57,13 @@ script = ExtResource("3_4vntv")
 
 [node name="RotatingCam" type="Camera3D" parent="CamFocus"]
 transform = Transform3D(1, 0, 0, 0, 0.782608, 0.622515, 0, -0.622515, 0.782608, 0, 13.0374, 16.9639)
-current = true
 fov = 40.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_cqs1t")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.78152, -0.48893, 0.387521, 0, 0.621148, 0.783693, -0.62388, -0.612472, 0.48544, 0, 0, 0)
+transform = Transform3D(0.78152, -0.488931, 0.387522, 0, 0.621148, 0.783693, -0.62388, -0.612472, 0.48544, 0, 0, 0)
 light_energy = 0.8
 shadow_enabled = true
 directional_shadow_max_distance = 300.0

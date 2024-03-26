@@ -25,6 +25,7 @@ public partial class WFC3DMain : Node
 	[Export] 
 	bool Update = false;
 	GridMap GridMap;
+	Label SeedLabel;
 
 	WFC3DModel WFC;
 	Vector3I Coords;
@@ -32,6 +33,8 @@ public partial class WFC3DMain : Node
 	public override void _Ready()
 	{
 		GridMap = GetNode<GridMap>("GridMap");
+		SeedLabel = GetNode<Label>("SeedLabel");
+		SeedLabel.Text = "Seed: " + Seed;
 		Test();
 	}
 
@@ -39,7 +42,7 @@ public partial class WFC3DMain : Node
 	{
 		if (Input.IsActionJustPressed("ui_accept"))
 		{
-			Seed += 1;
+			ChangeSeed();
 			Test();
 		}		
 	}
@@ -67,7 +70,7 @@ public partial class WFC3DMain : Node
 				
 			if (GridMap.GetMeshes().Count == 0)
 			{
-				Seed += 1;
+				ChangeSeed();
 				Test();
 			}				
 			else
@@ -88,7 +91,7 @@ public partial class WFC3DMain : Node
 
 		if (GridMap.GetMeshes().Count == 0)
 		{
-			Seed += 1;
+			ChangeSeed();
 			Test();
 		}			
 	}
@@ -280,5 +283,11 @@ public partial class WFC3DMain : Node
 	public void ClearMeshes()
 	{
 		GridMap.Clear();
+	}
+
+	public void ChangeSeed()
+	{
+		Seed++;
+		SeedLabel.Text = "Seed: " + Seed;
 	}
 }

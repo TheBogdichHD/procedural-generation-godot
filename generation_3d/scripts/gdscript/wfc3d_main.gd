@@ -5,7 +5,9 @@ extends Node
 
 @export var my_seed = 6
 @export var update = false
+
 @onready var grid_map = $GridMap
+@onready var seed_label = $SeedLabel
 
 var wfc : WFC3D_Model
 var meshes : Array
@@ -14,12 +16,13 @@ var coords : Vector3
 
 
 func _ready():
+	seed_label.text = "Seed: " + my_seed
 	test()
 
 
 func _unhandled_input(_event):
 	if Input.is_action_just_pressed("ui_accept"):
-		my_seed += 1
+		change_seed()
 		test()
 
 
@@ -41,7 +44,7 @@ func test():
 			await get_tree().process_frame
 		
 		if len(grid_map.get_meshes()) == 0:
-			my_seed += 1
+			change_seed()
 			test()
 		else:
 			clear_meshes()
@@ -58,7 +61,7 @@ func regen_no_update():
 	
 	visualize_wave_function()
 	if len(grid_map.get_meshes()) == 0:
-		my_seed += 1
+		change_seed()
 		test()
 
 
@@ -164,6 +167,9 @@ func visualize_wave_function(only_collapsed=true):
 					
 					grid_map.set_cell_item(Vector3i(x,y,z), int(mesh_name), rot_index)
 
+func change_seed():
+	my_seed += 1
+	seed_label.text = "Seed: " + my_seed
 
 func clear_meshes():
 	grid_map.clear()

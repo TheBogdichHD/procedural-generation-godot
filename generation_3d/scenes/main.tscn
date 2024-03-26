@@ -31,8 +31,6 @@ subdivide_depth = 150
 [node name="Main" type="Node3D"]
 script = ExtResource("1_qrna6")
 Size = Vector3i(20, 3, 20)
-Seed = 4
-Update = true
 
 [node name="SeedLabel" type="Label" parent="."]
 offset_right = 40.0
@@ -57,6 +55,7 @@ script = ExtResource("3_4vntv")
 
 [node name="RotatingCam" type="Camera3D" parent="CamFocus"]
 transform = Transform3D(1, 0, 0, 0, 0.782608, 0.622515, 0, -0.622515, 0.782608, 0, 13.0374, 16.9639)
+current = true
 fov = 40.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

@@ -14,7 +14,8 @@ public partial class WFC3DModel : Node
 		[Vector3I.Down] = 5
 	};
 	
-	public Dictionary<string, ItemInfo>[,,] WaveFunction;
+	Dictionary<string, ItemInfo> PrototypeData;
+	public List<string>[,,] WaveFunction;
 	Vector3I Size;
 	public Stack<Vector3I> Stack = new Stack<Vector3I>();
 	public Random Rand = new Random();
@@ -23,8 +24,8 @@ public partial class WFC3DModel : Node
 	public void Initialize(Vector3I NewSize, Dictionary<string, ItemInfo> AllPrototypes)
 	{
 		Size = NewSize;
-
-		WaveFunction = new Dictionary<string, ItemInfo>[Size.X, Size.Y, Size.Z];
+		PrototypeData = AllPrototypes;
+		WaveFunction = new List<string>[Size.X, Size.Y, Size.Z];
 
 		for (int z = 0; z < Size.Z; z++)
 		{
@@ -32,7 +33,7 @@ public partial class WFC3DModel : Node
 			{
 				for (int x = 0; x < Size.X; x++)
 				{
-					WaveFunction[x, y, z] = new Dictionary<string, ItemInfo>(AllPrototypes);
+					WaveFunction[x, y, z] = new List<string>(PrototypeData.Keys);
 				}				
 			}
 		}		
@@ -57,7 +58,7 @@ public partial class WFC3DModel : Node
 	}
 		
 
-	public Dictionary<string, ItemInfo> GetPossibilities(Vector3I Coords)
+	public List<string> GetPossibilities(Vector3I Coords)
 	{
 		return WaveFunction[Coords.X, Coords.Y, Coords.Z];
 	}
@@ -69,9 +70,9 @@ public partial class WFC3DModel : Node
 		var Prototypes = GetPossibilities(Coords);
 		var DirIdx = DirectionToIndex[Dir];
 
-		foreach (string Prototype in Prototypes.Keys)
+		foreach (string Prototype in Prototypes)
 		{
-			var Neighbours = Prototypes[Prototype].ValidNeighbours[DirIdx];
+			var Neighbours = PrototypeData[Prototype].ValidNeighbours[DirIdx];
 
 			for (int j = 0; j < Neighbours.Count; j++)
 			{
@@ -88,28 +89,24 @@ public partial class WFC3DModel : Node
 
 	public void CollapseCoordsTo(Vector3I Coords, string PrototypeName)
 	{
-		var Prototype = WaveFunction[Coords.X, Coords.Y, Coords.Z][PrototypeName];
-		WaveFunction[Coords.X, Coords.Y, Coords.Z] = new Dictionary<string, ItemInfo>() { [PrototypeName] = Prototype };
+		WaveFunction[Coords.X, Coords.Y, Coords.Z] = new List<string>() { PrototypeName };
 	}
 
 
 	public void CollapseAt(Vector3I Coords)
 	{
-		var PossiblePrototypes = WaveFunction[Coords.X, Coords.Y, Coords.Z];
-		var Selection = WeightedChoice(PossiblePrototypes);
-		var Prototype = PossiblePrototypes[Selection];
-		PossiblePrototypes = new Dictionary<string, ItemInfo>() { [Selection] = Prototype };
-		WaveFunction[Coords.X, Coords.Y, Coords.Z] = PossiblePrototypes;
+		var Selection = WeightedChoice(WaveFunction[Coords.X, Coords.Y, Coords.Z]);
+		WaveFunction[Coords.X, Coords.Y, Coords.Z] = new List<string>() { Selection };
 	}
 		
 
-	public string WeightedChoice(Dictionary<string, ItemInfo> Prototypes)
+	public string WeightedChoice(List<string> Prototypes)
 	{
 		var ProtoWeights = new Dictionary<float, string>();
 		
-		foreach (string P in Prototypes.Keys)
+		foreach (string P in Prototypes)
 		{
-			float W = Prototypes[P].Weight;
+			float W = PrototypeData[P].Weight;
 			W += (float)(Rand.NextDouble() * 2 - 1);
 			ProtoWeights[W] = P;
 		}
@@ -196,12 +193,12 @@ public partial class WFC3DModel : Node
 			{
 				var OtherCoords = CurCoords + D;
 				var PossibleNeighbours = GetPossibleNeighbours(CurCoords, D);
-				var OtherPossiblePrototypes = new Dictionary<string, ItemInfo>(GetPossibilities(OtherCoords));
+				var OtherPossiblePrototypes = new List<string>(GetPossibilities(OtherCoords));
 
 				if (OtherPossiblePrototypes.Count == 0)
 					continue;
 
-				foreach (string OtherPrototype in OtherPossiblePrototypes.Keys)
+				foreach (string OtherPrototype in OtherPossiblePrototypes)
 				{
 					if (!PossibleNeighbours.Contains(OtherPrototype))
 					{

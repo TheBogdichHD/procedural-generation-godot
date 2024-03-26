@@ -27,7 +27,8 @@ public partial class WFC3DMain : Node
 	GridMap GridMap;
 	Label SeedLabel;
 
-	WFC3DModel WFC;
+	Dictionary<string, ItemInfo> PrototypeData;
+	WFC3DModel WFC = null;
 	Vector3I Coords;
 
 	public override void _Ready()
@@ -35,6 +36,7 @@ public partial class WFC3DMain : Node
 		GridMap = GetNode<GridMap>("GridMap");
 		SeedLabel = GetNode<Label>("SeedLabel");
 		SeedLabel.Text = "Seed: " + Seed;
+		LoadPrototypeData();
 		Test();
 	}
 
@@ -49,12 +51,17 @@ public partial class WFC3DMain : Node
 
 	public async void Test()
 	{
-		ClearMeshes();		
-		Dictionary<string, ItemInfo> Prototypes = LoadPrototypeData();
-		WFC = new WFC3DModel();		
-		AddChild(WFC);
+		ClearMeshes();
+
+		if (WFC == null)
+		{
+			WFC = new WFC3DModel();
+			AddChild(WFC);
+		}
+
 		WFC.Rand = new Random(Seed.GetHashCode());
-		WFC.Initialize(Size, Prototypes);
+		WFC.Initialize(Size, PrototypeData);
+		WFC.Stack.Clear();
 
 		ApplyCustomConstraints();
 	
@@ -110,9 +117,9 @@ public partial class WFC3DMain : Node
 					
 					if (y == Size.Y - 1)
 					{
-						foreach (string Proto in new List<string>(Protos.Keys))
+						foreach (string Proto in new List<string>(Protos))
 						{
-							var Neighs = Protos[Proto].ValidNeighbours[pZ];
+							var Neighs = PrototypeData[Proto].ValidNeighbours[pZ];
 							if (!Neighs.Contains("p-1"))
 							{
 								Protos.Remove(Proto);
@@ -123,9 +130,9 @@ public partial class WFC3DMain : Node
 					} 		
 					if (y > 0)
 					{
-						foreach (string Proto in new List<string>(Protos.Keys))
+						foreach (string Proto in new List<string>(Protos))
 						{
-							var CustomConstraint = Protos[Proto].ConstrainTo;
+							var CustomConstraint = PrototypeData[Proto].ConstrainTo;
 							if (CustomConstraint == CONSTRAINT_BOTTOM)
 							{
 								Protos.Remove(Proto);
@@ -136,9 +143,9 @@ public partial class WFC3DMain : Node
 					}						
 					if (y < Size.Y - 1)
 					{
-						foreach (string Proto in new List<string>(Protos.Keys))
+						foreach (string Proto in new List<string>(Protos))
 						{
-							var CustomConstraint = Protos[Proto].ConstrainTo;
+							var CustomConstraint = PrototypeData[Proto].ConstrainTo;
 							if (CustomConstraint == CONSTRAINT_TOP)
 							{
 								Protos.Remove(Proto);
@@ -149,10 +156,10 @@ public partial class WFC3DMain : Node
 					}
 					if (y == 0)
 					{
-						foreach (string Proto in new List<string>(Protos.Keys))
+						foreach (string Proto in new List<string>(Protos))
 						{
-							var Neighs = Protos[Proto].ValidNeighbours[nZ];
-							var CustomConstraint = Protos[Proto].ConstrainFrom;
+							var Neighs = PrototypeData[Proto].ValidNeighbours[nZ];
+							var CustomConstraint = PrototypeData[Proto].ConstrainFrom;
 							if (!Neighs.Contains("p-1") || (CustomConstraint == CONSTRAINT_BOTTOM))
 							{
 								Protos.Remove(Proto);
@@ -163,10 +170,10 @@ public partial class WFC3DMain : Node
 					}						
 					if (x == Size.X - 1)
 					{
-						foreach (string Proto in new List<string>(Protos.Keys))
+						foreach (string Proto in new List<string>(Protos))
 						{
-							var Neighs = Protos[Proto].ValidNeighbours[pX];
-							var CustomConstraint = Protos[Proto].ConstrainFrom;
+							var Neighs = PrototypeData[Proto].ValidNeighbours[pX];
+							var CustomConstraint = PrototypeData[Proto].ConstrainFrom;
 							if (!Neighs.Contains("p-1"))
 							{
 								Protos.Remove(Proto);
@@ -177,10 +184,10 @@ public partial class WFC3DMain : Node
 					}						
 					if (x == 0)
 					{
-						foreach (string Proto in new List<string>(Protos.Keys))
+						foreach (string Proto in new List<string>(Protos))
 						{
-							var Neighs = Protos[Proto].ValidNeighbours[nX];
-							var CustomConstraint = Protos[Proto].ConstrainFrom;
+							var Neighs = PrototypeData[Proto].ValidNeighbours[nX];
+							var CustomConstraint = PrototypeData[Proto].ConstrainFrom;
 							if (!Neighs.Contains("p-1"))
 							{
 								Protos.Remove(Proto);
@@ -191,10 +198,10 @@ public partial class WFC3DMain : Node
 					}			
 					if (z == Size.Z - 1) 
 					{
-						foreach (string Proto in new List<string>(Protos.Keys))
+						foreach (string Proto in new List<string>(Protos))
 						{
-							var Neighs = Protos[Proto].ValidNeighbours[nY];
-							var CustomConstraint = Protos[Proto].ConstrainFrom;
+							var Neighs = PrototypeData[Proto].ValidNeighbours[nY];
+							var CustomConstraint = PrototypeData[Proto].ConstrainFrom;
 							if (!Neighs.Contains("p-1"))
 							{
 								Protos.Remove(Proto);
@@ -205,10 +212,10 @@ public partial class WFC3DMain : Node
 					}
 					if (z == 0)
 					{
-						foreach (string Proto in new List<string>(Protos.Keys))
+						foreach (string Proto in new List<string>(Protos))
 						{
-							var Neighs = Protos[Proto].ValidNeighbours[pY];
-							var CustomConstraint = Protos[Proto].ConstrainFrom;
+							var Neighs = PrototypeData[Proto].ValidNeighbours[pY];
+							var CustomConstraint = PrototypeData[Proto].ConstrainFrom;
 							if (!Neighs.Contains("p-1"))
 							{
 								Protos.Remove(Proto);
@@ -224,11 +231,10 @@ public partial class WFC3DMain : Node
 		WFC.Propagate(new Vector3I(-1,-1,-1), false);
 	}
 
-	public Dictionary<string, ItemInfo> LoadPrototypeData()
+	public void LoadPrototypeData()
 	{
 		var JsonAsText = FileAccess.GetFileAsString("res://generation_3d/prototype_data.json");
-		Dictionary<string, ItemInfo> JsonAsDict = JsonConvert.DeserializeObject<Dictionary<string, ItemInfo>>(JsonAsText);
-		return JsonAsDict;
+		PrototypeData = JsonConvert.DeserializeObject<Dictionary<string, ItemInfo>>(JsonAsText);
 	}
 
 	public void VisualizeWaveFunction(bool OnlyCollapsed = true)
@@ -245,11 +251,10 @@ public partial class WFC3DMain : Node
 						if (Prototypes.Count > 1)
 							continue;
 
-					foreach (string Prototype in Prototypes.Keys)
+					foreach (string Prototype in Prototypes)
 					{
-						var Dict = WFC.WaveFunction[x, y, z][Prototype];
-						var MeshName = Dict.MeshName;
-						var MeshRot = Dict.MeshRotation;
+						var MeshName = PrototypeData[Prototype].MeshName;
+						var MeshRot = PrototypeData[Prototype].MeshRotation;
 
 						if (MeshName == "-1")
 							continue;

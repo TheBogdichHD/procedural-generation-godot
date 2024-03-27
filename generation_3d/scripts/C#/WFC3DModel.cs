@@ -40,6 +40,23 @@ public partial class WFC3DModel : Node
 		}		
 	}
 	
+	public float CollapsedCount()
+	{
+		float Count = 0;
+		for (int z = 0; z < Size.Z; z++)
+		{
+			for (int y = 0; y < Size.Y; y++)
+			{
+				for (int x = 0; x < Size.X; x++)
+				{
+					if (WaveFunction[x, y, z].Count == 1)
+						Count++;
+				}				
+			}
+		}	
+
+		return Count;
+	}
 
 	public bool IsCollapsed()
 	{

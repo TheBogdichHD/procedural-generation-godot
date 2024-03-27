@@ -30,6 +30,7 @@ public partial class WFC3DMain : Node
 	GridMap GridMap;
 	Label SeedLabel;
 	Label SizeLabel;
+	ProgressBar ProgressBar;
 
 	Dictionary<string, ItemInfo> PrototypeData;
 	WFC3DModel WFC = null;
@@ -40,6 +41,7 @@ public partial class WFC3DMain : Node
 		GridMap = GetNode<GridMap>("GridMap");
 		SeedLabel = GetNode<Label>("Labels/SeedLabel");
 		SizeLabel = GetNode<Label>("Labels/SizeLabel");
+		ProgressBar = GetNode<ProgressBar>("ProgressBar");
 		SeedLabel.Text = "Seed: " + Seed;
 		LoadPrototypeData();
 		Test();
@@ -77,6 +79,7 @@ public partial class WFC3DMain : Node
 				WFC.Iterate();
 				ClearMeshes();
 				VisualizeWaveFunction();
+				ProgressBar.Value = 100*WFC.CollapsedCount()/(Size.X*Size.Y*Size.Z);
 				await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 			}
 				
@@ -97,7 +100,10 @@ public partial class WFC3DMain : Node
 	public void RegenNoUpdate()
 	{
 		while (!WFC.IsCollapsed())
+		{
 			WFC.Iterate();
+		}
+			
 
 		VisualizeWaveFunction();
 
@@ -283,7 +289,7 @@ public partial class WFC3DMain : Node
 						}
 						
 						var NameInd = int.Parse(string.Join("", MeshName.ToCharArray().Where(Char.IsDigit)));
-						GridMap.SetCellItem(new Vector3I(x,y,z), NameInd, RotIndex);
+						GridMap.SetCellItem(new Vector3I(x-Size.X/2,y,z-Size.Z/2), NameInd, RotIndex);
 					}						
 				}				
 			}

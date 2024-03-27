@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://d04ack6qqu7me"]
+
+[resource]
+resource_name = "Beach"
+specular_mode = 2
+albedo_color = Color(0.709804, 0.607843, 0.447059, 1)
+subsurf_scatter_strength = 0.38

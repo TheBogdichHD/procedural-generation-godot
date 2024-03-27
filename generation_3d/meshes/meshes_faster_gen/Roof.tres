@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bauasxoq7jdov"]
+
+[resource]
+resource_name = "Roof"
+specular_mode = 2
+albedo_color = Color(0.152941, 0.137255, 0.109804, 1)

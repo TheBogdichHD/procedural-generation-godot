@@ -1,0 +1,255 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://cxh14lv3blxqf"
+path="res://.godot/imported/wfc_modules.glb-8ed97bccca199ce6a73eb71526307924.scn"
+
+[deps]
+
+source_file="res://generation_3d/meshes/meshes_faster_gen/wfc_modules.glb"
+dest_files=["res://.godot/imported/wfc_modules.glb-8ed97bccca199ce6a73eb71526307924.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+import_script/path=""
+_subresources={
+"materials": {
+"Beach": {
+"use_external/enabled": true,
+"use_external/path": "res://generation_3d/meshes/meshes_faster_gen/Beach.tres"
+},
+"Grass": {
+"use_external/enabled": true,
+"use_external/path": "res://generation_3d/meshes/meshes_faster_gen/Grass.tres"
+},
+"Rock": {
+"use_external/enabled": true,
+"use_external/path": "res://generation_3d/meshes/meshes_faster_gen/Rock.tres"
+},
+"Roof": {
+"use_external/enabled": true,
+"use_external/path": "res://generation_3d/meshes/meshes_faster_gen/Roof.tres"
+}
+},
+"meshes": {
+"wfc_modules_Cube_265": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://generation_3d/meshes/meshes_faster_gen/wfc_modules_Cube_265.res"
+},
+"wfc_modules_Cube_266": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://generation_3d/meshes/meshes_faster_gen/wfc_modules_Cube_266.res"
+},
+"wfc_modules_Cube_267": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://generation_3d/meshes/meshes_faster_gen/wfc_modules_Cube_267.res"
+},
+"wfc_modules_Cube_268": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://generation_3d/meshes/meshes_faster_gen/wfc_modules_Cube_268.res"
+},
+"wfc_modules_Cube_269": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://generation_3d/meshes/meshes_faster_gen/wfc_modules_Cube_269.res"
+},
+"wfc_modules_Cube_270": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://generation_3d/meshes/meshes_faster_gen/wfc_modules_Cube_270.res"
+},
+"wfc_modules_Cube_271": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://generation_3d/meshes/meshes_faster_gen/wfc_modules_Cube_271.res"
+},
+"wfc_modules_Cube_272": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://generation_3d/meshes/meshes_faster_gen/wfc_modules_Cube_272.res"
+},
+"wfc_modules_Cube_273": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://generation_3d/meshes/meshes_faster_gen/wfc_modules_Cube_273.res"
+},
+"wfc_modules_Cube_274": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://generation_3d/meshes/meshes_faster_gen/wfc_modules_Cube_274.res"
+},
+"wfc_modules_Cube_275": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://generation_3d/meshes/meshes_faster_gen/wfc_modules_Cube_275.res"
+},
+"wfc_modules_Cube_276": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://generation_3d/meshes/meshes_faster_gen/wfc_modules_Cube_276.res"
+},
+"wfc_modules_Cube_277": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://generation_3d/meshes/meshes_faster_gen/wfc_modules_Cube_277.res"
+},
+"wfc_modules_Cube_278": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://generation_3d/meshes/meshes_faster_gen/wfc_modules_Cube_278.res"
+},
+"wfc_modules_Cube_279": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://generation_3d/meshes/meshes_faster_gen/wfc_modules_Cube_279.res"
+},
+"wfc_modules_Cube_280": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://generation_3d/meshes/meshes_faster_gen/wfc_modules_Cube_280.res"
+},
+"wfc_modules_Cube_281": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://generation_3d/meshes/meshes_faster_gen/wfc_modules_Cube_281.res"
+},
+"wfc_modules_Cube_282": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://generation_3d/meshes/meshes_faster_gen/wfc_modules_Cube_282.res"
+},
+"wfc_modules_Cube_283": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://generation_3d/meshes/meshes_faster_gen/wfc_modules_Cube_283.res"
+},
+"wfc_modules_Cube_284": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://generation_3d/meshes/meshes_faster_gen/wfc_modules_Cube_284.res"
+}
+}
+}
+gltf/naming_version=1
+gltf/embedded_image_handling=1

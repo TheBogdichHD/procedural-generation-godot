@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c4p1tj2q6no62"]
+
+[resource]
+resource_name = "Rock"
+specular_mode = 2
+albedo_color = Color(0.8, 0.85098, 0.835294, 1)

@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bot2hvpyko1a6"]
+
+[resource]
+resource_name = "Grass"
+specular_mode = 2
+albedo_color = Color(0.14902, 0.509804, 0.360784, 1)

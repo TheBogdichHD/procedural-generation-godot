@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using ItemInfoName;
+using ItemInfoClass;
 using System.Linq;
 
 public partial class WFC3DMain : Node
@@ -17,6 +17,9 @@ public partial class WFC3DMain : Node
 	const int pZ = 4;
 	const int nZ = 5;
 
+
+	[Export]
+	string JsonPath;
 	[Export]
 	Vector3I Size = new Vector3I(8, 3, 8);
 
@@ -26,6 +29,7 @@ public partial class WFC3DMain : Node
 	bool Update = false;
 	GridMap GridMap;
 	Label SeedLabel;
+	Label SizeLabel;
 
 	Dictionary<string, ItemInfo> PrototypeData;
 	WFC3DModel WFC = null;
@@ -34,7 +38,8 @@ public partial class WFC3DMain : Node
 	public override void _Ready()
 	{
 		GridMap = GetNode<GridMap>("GridMap");
-		SeedLabel = GetNode<Label>("SeedLabel");
+		SeedLabel = GetNode<Label>("Labels/SeedLabel");
+		SizeLabel = GetNode<Label>("Labels/SizeLabel");
 		SeedLabel.Text = "Seed: " + Seed;
 		LoadPrototypeData();
 		Test();
@@ -59,6 +64,7 @@ public partial class WFC3DMain : Node
 			AddChild(WFC);
 		}
 
+		SizeLabel.Text = $"Size: X:{Size.X} Y:{Size.Y} Z:{Size.Z}";
 		WFC.Initialize(Size, PrototypeData, Seed.GetHashCode());
 		WFC.Stack.Clear();
 
@@ -232,7 +238,7 @@ public partial class WFC3DMain : Node
 
 	public void LoadPrototypeData()
 	{
-		var JsonAsText = FileAccess.GetFileAsString("res://generation_3d/prototype_data.json");
+		var JsonAsText = FileAccess.GetFileAsString(JsonPath);
 		PrototypeData = JsonConvert.DeserializeObject<Dictionary<string, ItemInfo>>(JsonAsText);
 	}
 

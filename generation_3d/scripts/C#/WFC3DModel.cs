@@ -1,7 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using ItemInfoName;
+using ItemInfoClass;
 
 public partial class WFC3DModel : Node
 {

@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace ItemInfoName
+namespace ItemInfoClass
 {
     public class ItemInfo
     {

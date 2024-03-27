@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bffpg4d6kgne3"]
 
-[ext_resource type="ArrayMesh" uid="uid://dklmwfpfqu02h" path="res://generation_3d/meshes/wfc_module_0.res" id="2_tn6c7"]
+[ext_resource type="ArrayMesh" uid="uid://dklmwfpfqu02h" path="res://generation_3d/meshes/meshes_slower_gen/wfc_module_0.res" id="2_tn6c7"]
 
 [sub_resource type="GDScript" id="GDScript_6cdo2"]
 script/source = "extends Node3D

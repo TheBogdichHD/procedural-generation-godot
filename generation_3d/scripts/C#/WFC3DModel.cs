@@ -17,7 +17,7 @@ public partial class WFC3DModel : Node
 	Dictionary<string, ItemInfo> PrototypeData;
 	public List<string>[,,] WaveFunction;
 	Vector3I Size;
-	public Stack<Vector3I> Stack = new Stack<Vector3I>();
+	public Stack<Vector3I> Stack = new();
 	Random Rand;
 
 

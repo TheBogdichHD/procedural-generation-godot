@@ -32,9 +32,9 @@ subdivide_depth = 150
 [node name="Main" type="Node3D"]
 script = ExtResource("1_qrna6")
 JsonPath = "res://generation_3d/meshes/meshes_faster_gen/prototype_data.json"
-Size = Vector3i(40, 3, 40)
-Seed = 8
+Size = Vector3i(10, 3, 10)
 Update = true
+UsePrebuild = true
 
 [node name="Labels" type="VBoxContainer" parent="."]
 offset_right = 40.0
@@ -85,7 +85,7 @@ mesh = SubResource("PlaneMesh_hpjv6")
 [node name="GridMap" parent="." instance=ExtResource("6_0mo5j")]
 mesh_library = ExtResource("6_j4cm4")
 data = {
-"cells": PackedInt32Array(2, 1, 0, 2, 0, 0, 2, 65535, 0, 2, 65534, 0)
+"cells": PackedInt32Array(1, 65535, 2, 3, 0, 3, 2, 0, 1048578, 1, 0, 18, 3, 65534, 1441795, 2, 65534, 1441794, 1, 65534, 1441810, 0, 65535, 11)
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 

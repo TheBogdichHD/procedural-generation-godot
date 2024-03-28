@@ -21,28 +21,35 @@ public partial class WFC3DMain : Node
 	[Export]
 	string JsonPath;
 	[Export]
-	Vector3I Size = new Vector3I(8, 3, 8);
+	Vector3I Size = new(8, 3, 8);
 
 	[Export]
 	int Seed = 0;
 	[Export] 
 	bool Update = false;
-	GridMap GridMap;
-	Label SeedLabel;
-	Label SizeLabel;
-	ProgressBar ProgressBar;
+	[Export] 
+	bool UsePrebuild = false;
+
+	private GridMap _gridMap;
+	private Label _seedLabel;
+	private Label _sizeLabel;
+	private ProgressBar _progressBar;
 
 	Dictionary<string, ItemInfo> PrototypeData;
 	WFC3DModel WFC = null;
 	Vector3I Coords;
 
+	private Dictionary<Vector3I, Tuple<int, int>> _gridMapState = new();
+
 	public override void _Ready()
 	{
-		GridMap = GetNode<GridMap>("GridMap");
-		SeedLabel = GetNode<Label>("Labels/SeedLabel");
-		SizeLabel = GetNode<Label>("Labels/SizeLabel");
-		ProgressBar = GetNode<ProgressBar>("ProgressBar");
-		SeedLabel.Text = "Seed: " + Seed;
+		_gridMap = GetNode<GridMap>("GridMap");
+		_seedLabel = GetNode<Label>("Labels/SeedLabel");
+		_sizeLabel = GetNode<Label>("Labels/SizeLabel");
+		_progressBar = GetNode<ProgressBar>("ProgressBar");
+		_seedLabel.Text = "Seed: " + Seed;
+
+		SaveGridMapState();
 		LoadPrototypeData();
 		Test();
 	}
@@ -60,18 +67,28 @@ public partial class WFC3DMain : Node
 	{
 		ClearMeshes();
 
+		if (UsePrebuild)
+		{
+			LoadGridMapState();
+		}
+
 		if (WFC == null)
 		{
 			WFC = new WFC3DModel();
 			AddChild(WFC);
 		}
 
-		SizeLabel.Text = $"Size: X:{Size.X} Y:{Size.Y} Z:{Size.Z}";
+		_sizeLabel.Text = $"Size: X:{Size.X} Y:{Size.Y} Z:{Size.Z}";
 		WFC.Initialize(Size, PrototypeData, Seed.GetHashCode());
 		WFC.Stack.Clear();
 
 		ApplyCustomConstraints();
-	
+
+		if (UsePrebuild)
+		{			
+			BuildOnExisting();
+		}
+
 		if (Update)
 		{
 			while (!WFC.IsCollapsed())
@@ -79,11 +96,11 @@ public partial class WFC3DMain : Node
 				WFC.Iterate();
 				ClearMeshes();
 				VisualizeWaveFunction();
-				ProgressBar.Value = 100*WFC.CollapsedCount()/(Size.X*Size.Y*Size.Z);
+				_progressBar.Value = 100*WFC.CollapsedCount()/(Size.X*Size.Y*Size.Z);
 				await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 			}
 				
-			if (GridMap.GetMeshes().Count == 0)
+			if (_gridMap.GetMeshes().Count == 0)
 			{
 				ChangeSeed();
 				Test();
@@ -97,6 +114,79 @@ public partial class WFC3DMain : Node
 		VisualizeWaveFunction();
 	}	
 
+	public void SaveGridMapState()
+	{
+		var UsedCells = _gridMap.GetUsedCells();
+
+		foreach (Vector3I Cell in UsedCells)
+		{
+			_gridMapState[Cell] = new Tuple<int, int>(_gridMap.GetCellItem(Cell), _gridMap.GetCellItemOrientation(Cell));
+		}
+	}
+
+	public void LoadGridMapState()
+	{
+		foreach (Vector3I Cell in _gridMapState.Keys)
+		{
+			_gridMap.SetCellItem(Cell, _gridMapState[Cell].Item1, _gridMapState[Cell].Item2);
+		}
+	}
+
+	public void BuildOnExisting()
+	{
+		for (int z = 0; z < Size.Z; z++)
+		{
+			for (int y = 0; y < Size.Y; y++)
+			{
+				for (int x = 0; x < Size.X; x++)
+				{
+					Coords = new Vector3I(x,y,z);
+
+					var Item = _gridMap.GetCellItem(new Vector3I(x-Size.X/2,y,z-Size.Z/2));
+					
+					if (Item==-1)
+						continue;
+
+					var RotIndex = _gridMap.GetCellItemOrientation(new Vector3I(x-Size.X/2,y,z-Size.Z/2));
+					var MeshRot = -1;
+
+					switch(RotIndex)
+					{
+						case 0: 
+							MeshRot = 0; 
+							break;
+						case 16: 
+							MeshRot = 1;
+							break;
+						case 10: 
+							MeshRot = 2;
+							break;
+						case 22: 
+							MeshRot = 3;
+							break;
+					}
+
+					foreach (string Prototype in PrototypeData.Keys)
+					{
+						var Name = PrototypeData[Prototype].MeshName;
+						var Rotation = PrototypeData[Prototype].MeshRotation;
+
+						var NameInd = int.Parse(string.Join("", Name.ToCharArray().Where(Char.IsDigit)));
+						if (NameInd == Item && Rotation == MeshRot)
+						{
+							WFC.WaveFunction[x,y,z] = new List<string>() { Prototype };
+							if (!WFC.Stack.Contains(Coords))
+								WFC.Stack.Push(Coords);
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		WFC.Propagate(new Vector3I(-1,-1,-1), false);
+	}
+
 	public void RegenNoUpdate()
 	{
 		while (!WFC.IsCollapsed())
@@ -107,7 +197,7 @@ public partial class WFC3DMain : Node
 
 		VisualizeWaveFunction();
 
-		if (GridMap.GetMeshes().Count == 0)
+		if (_gridMap.GetMeshes().Count == 0)
 		{
 			ChangeSeed();
 			Test();
@@ -289,7 +379,7 @@ public partial class WFC3DMain : Node
 						}
 						
 						var NameInd = int.Parse(string.Join("", MeshName.ToCharArray().Where(Char.IsDigit)));
-						GridMap.SetCellItem(new Vector3I(x-Size.X/2,y,z-Size.Z/2), NameInd, RotIndex);
+						_gridMap.SetCellItem(new Vector3I(x-Size.X/2,y,z-Size.Z/2), NameInd, RotIndex);
 					}						
 				}				
 			}
@@ -298,12 +388,12 @@ public partial class WFC3DMain : Node
 		
 	public void ClearMeshes()
 	{
-		GridMap.Clear();
+		_gridMap.Clear();
 	}
 
 	public void ChangeSeed()
 	{
 		Seed++;
-		SeedLabel.Text = "Seed: " + Seed;
+		_seedLabel.Text = "Seed: " + Seed;
 	}
 }

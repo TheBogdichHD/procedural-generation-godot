@@ -19,7 +19,7 @@ public partial class WFC3DMain : Node
 
 
 	[Export]
-	string JsonPath;
+	string JsonPath = "res://generation_3d/meshes/meshes_faster_gen/prototype_data.json";
 	[Export]
 	Vector3I Size = new(8, 3, 8);
 
@@ -65,7 +65,7 @@ public partial class WFC3DMain : Node
 
 	public async void Test()
 	{
-		ClearMeshes();
+		gridMap.Clear();
 
 		if (UsePrebuild)
 		{
@@ -94,7 +94,7 @@ public partial class WFC3DMain : Node
 			while (!WFC.IsCollapsed())
 			{
 				WFC.Iterate();
-				ClearMeshes();
+				gridMap.Clear();
 				VisualizeWaveFunction();
 				progressBar.Value = 100*WFC.CollapsedCount()/(Size.X*Size.Y*Size.Z);
 				await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
@@ -106,7 +106,7 @@ public partial class WFC3DMain : Node
 				Test();
 			}				
 			else
-				ClearMeshes();
+				gridMap.Clear();
 		}
 		else
 			RegenNoUpdate();
@@ -122,7 +122,7 @@ public partial class WFC3DMain : Node
 			WFC.Iterate();
 		}
 			
-
+		gridMap.Clear();
 		VisualizeWaveFunction();
 
 		if (gridMap.GetMeshes().Count == 0)
@@ -388,11 +388,6 @@ public partial class WFC3DMain : Node
 		}							
 	}
 		
-	public void ClearMeshes()
-	{
-		gridMap.Clear();
-	}
-
 	public void ChangeSeed()
 	{
 		Seed++;

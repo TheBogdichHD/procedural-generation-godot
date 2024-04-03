@@ -28,11 +28,11 @@ public partial class WFC3DModel : Node
 		WaveFunction = new List<string>[Size.X, Size.Y, Size.Z];
 		Rand = new Random(Seed);
 
-		for (int z = 0; z < Size.Z; z++)
+		for (int x = 0; x < Size.X; x++)
 		{
 			for (int y = 0; y < Size.Y; y++)
 			{
-				for (int x = 0; x < Size.X; x++)
+				for (int z = 0; z < Size.Z; z++)
 				{
 					WaveFunction[x, y, z] = new List<string>(PrototypeData.Keys);
 				}				
@@ -43,11 +43,11 @@ public partial class WFC3DModel : Node
 	public float CollapsedCount()
 	{
 		float Count = 0;
-		for (int z = 0; z < Size.Z; z++)
+		for (int x = 0; x < Size.X; x++)
 		{
 			for (int y = 0; y < Size.Y; y++)
 			{
-				for (int x = 0; x < Size.X; x++)
+				for (int z = 0; z < Size.Z; z++)
 				{
 					if (WaveFunction[x, y, z].Count == 1)
 						Count++;
@@ -60,11 +60,11 @@ public partial class WFC3DModel : Node
 
 	public bool IsCollapsed()
 	{
-		for (int z = 0; z < Size.Z; z++)
+		for (int x = 0; x < Size.X; x++)
 		{
 			for (int y = 0; y < Size.Y; y++)
 			{
-				for (int x = 0; x < Size.X; x++)
+				for (int z = 0; z < Size.Z; z++)
 				{
 					if (WaveFunction[x, y, z].Count > 1)
 						return false;
@@ -160,11 +160,11 @@ public partial class WFC3DModel : Node
 		float MinEntropy = int.MaxValue;
 		Vector3I Coords = new Vector3I(-1,-1,-1);
 
-		for (int z = 0; z < Size.Z; z++)
+		for (int x = 0; x < Size.X; x++)
 		{
 			for (int y = 0; y < Size.Y; y++)
 			{
-				for (int x = 0; x < Size.X; x++)
+				for (int z = 0; z < Size.Z; z++)
 				{
 					var Entropy = GetEntropy(new Vector3I(x, y, z));
 					if (Entropy > 1)

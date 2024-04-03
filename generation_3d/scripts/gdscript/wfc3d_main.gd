@@ -3,11 +3,11 @@ extends Node
 
 @export var size = Vector3(8, 3, 8)
 
-@export var my_seed = 6
+@export var my_seed = 0
 @export var update = false
 
 @onready var grid_map = $GridMap
-@onready var seed_label = $SeedLabel
+@onready var seed_label = $Labels/SeedLabel
 
 var wfc : WFC3D_Model
 var meshes : Array
@@ -16,7 +16,7 @@ var coords : Vector3
 
 
 func _ready():
-	seed_label.text = "Seed: " + my_seed
+	seed_label.text = "Seed: " + str(my_seed)
 	test()
 
 
@@ -134,7 +134,7 @@ func apply_custom_constraints():
 
 
 func load_prototype_data():
-	var json_as_text = FileAccess.get_file_as_string("res://generation_3d/prototype_data.json")
+	var json_as_text = FileAccess.get_file_as_string("res://generation_3d/meshes/meshes_faster_gen/prototype_data.json")
 	var json_as_dict = JSON.parse_string(json_as_text)
 	return json_as_dict
 
@@ -169,7 +169,7 @@ func visualize_wave_function(only_collapsed=true):
 
 func change_seed():
 	my_seed += 1
-	seed_label.text = "Seed: " + my_seed
+	seed_label.text = "Seed: " + str(my_seed)
 
 func clear_meshes():
 	grid_map.clear()

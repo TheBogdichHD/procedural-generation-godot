@@ -34,12 +34,15 @@ public partial class WFC3DMain : Node
 	private Label seedLabel;
 	private Label sizeLabel;
 	private ProgressBar progressBar;
+	private Button saveButton;
+	private int savedSeed;
 
 	Dictionary<string, ItemInfo> PrototypeData;
 	WFC3DModel WFC = null;
 	Vector3I Coords;
 
-	private Dictionary<Vector3I, Tuple<int, int>> gridMapState = new();
+	private Dictionary<Vector3I, Tuple<int, int>> preBuildGridMapState = new();
+	private Dictionary<Vector3I, Tuple<int, int>> savedGridMapState = new();
 
 	public override void _Ready()
 	{
@@ -47,9 +50,10 @@ public partial class WFC3DMain : Node
 		seedLabel = GetNode<Label>("Labels/SeedLabel");
 		sizeLabel = GetNode<Label>("Labels/SizeLabel");
 		progressBar = GetNode<ProgressBar>("ProgressBar");
+		saveButton = GetNode<Button>("Buttons/Save");
 		seedLabel.Text = "Seed: " + Seed;
 
-		SaveGridMapState();
+		SaveGridMapState(preBuildGridMapState);
 		LoadPrototypeData();
 		Test();
 	}
@@ -63,13 +67,35 @@ public partial class WFC3DMain : Node
 		}		
 	}
 
+	public void OnSavePressed()
+	{
+		SaveGridMapState(savedGridMapState);
+		savedSeed = Seed;
+	}
+
+	public void OnLoadPressed()
+	{
+		seedLabel.Text = $"Seed: {savedSeed}";
+		progressBar.Value = 100;
+		gridMap.Clear();
+		LoadGridMapState(savedGridMapState);
+	}
+
+	public void OnProgressBarValueChanged(float Value)
+	{
+		if (Value == 100)
+			saveButton.Disabled = false;
+		else
+			saveButton.Disabled = true;
+	}
+
 	public async void Test()
 	{
 		gridMap.Clear();
 
 		if (UsePrebuild)
 		{
-			LoadGridMapState();
+			LoadGridMapState(preBuildGridMapState);
 		}
 
 		if (WFC == null)
@@ -96,6 +122,7 @@ public partial class WFC3DMain : Node
 				WFC.Iterate();
 				gridMap.Clear();
 				VisualizeWaveFunction();
+
 				progressBar.Value = 100*WFC.CollapsedCount()/(Size.X*Size.Y*Size.Z);
 				await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 			}
@@ -261,7 +288,7 @@ public partial class WFC3DMain : Node
 	}
 
 	
-	public void SaveGridMapState()
+	public void SaveGridMapState(Dictionary<Vector3I, Tuple<int, int>> gridMapState)
 	{
 		var UsedCells = gridMap.GetUsedCells();
 
@@ -271,7 +298,7 @@ public partial class WFC3DMain : Node
 		}
 	}
 
-	public void LoadGridMapState()
+	public void LoadGridMapState(Dictionary<Vector3I, Tuple<int, int>> gridMapState)
 	{
 		foreach (Vector3I Cell in gridMapState.Keys)
 		{

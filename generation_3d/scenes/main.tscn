@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ckofsts66b2ht"]
+[gd_scene load_steps=15 format=3 uid="uid://ckofsts66b2ht"]
 
 [ext_resource type="Script" path="res://generation_3d/scripts/C#/WFC3DMain.cs" id="1_qrna6"]
 [ext_resource type="Script" path="res://generation_3d/scripts/gdscript/camera3d.gd" id="2_ohlah"]
@@ -6,6 +6,22 @@
 [ext_resource type="Material" uid="uid://bpkox1ech63r5" path="res://generation_3d/shaders/sea_material.tres" id="5_igw8u"]
 [ext_resource type="PackedScene" uid="uid://bg7j5fq0v4v7p" path="res://generation_3d/scenes/grid_map.tscn" id="6_0mo5j"]
 [ext_resource type="MeshLibrary" uid="uid://cdjkh3r51syx" path="res://generation_3d/meshes/meshes_faster_gen/mesh_library.tres" id="6_j4cm4"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_y0p2s"]
+device = -1
+keycode = 67
+unicode = 99
+
+[sub_resource type="Shortcut" id="Shortcut_gb0wn"]
+events = [SubResource("InputEventKey_y0p2s")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_k61ti"]
+device = -1
+keycode = 86
+unicode = 118
+
+[sub_resource type="Shortcut" id="Shortcut_2fuwr"]
+events = [SubResource("InputEventKey_k61ti")]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b023f"]
 sky_top_color = Color(0.282353, 0.415686, 0.772549, 1)
@@ -32,8 +48,7 @@ subdivide_depth = 150
 [node name="Main" type="Node3D"]
 script = ExtResource("1_qrna6")
 Size = Vector3i(20, 3, 20)
-Seed = 1
-UsePrebuild = true
+Update = true
 
 [node name="Labels" type="VBoxContainer" parent="."]
 offset_right = 40.0
@@ -48,6 +63,26 @@ text = "Seed: "
 layout_mode = 2
 theme_override_font_sizes/font_size = 35
 text = "Size: "
+
+[node name="Buttons" type="VBoxContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="Save" type="Button" parent="Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+shortcut = SubResource("Shortcut_gb0wn")
+text = "Save"
+
+[node name="Load" type="Button" parent="Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+shortcut = SubResource("Shortcut_2fuwr")
+text = "Load"
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 27, 0)
@@ -99,3 +134,7 @@ grow_horizontal = 2
 grow_vertical = 0
 value = 100.0
 metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="Buttons/Save" to="." method="OnSavePressed"]
+[connection signal="pressed" from="Buttons/Load" to="." method="OnLoadPressed"]
+[connection signal="value_changed" from="ProgressBar" to="." method="OnProgressBarValueChanged"]

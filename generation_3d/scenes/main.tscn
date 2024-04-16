@@ -49,6 +49,7 @@ subdivide_depth = 150
 script = ExtResource("1_qrna6")
 Size = Vector3i(20, 3, 20)
 Update = true
+UsePrebuild = true
 
 [node name="Labels" type="VBoxContainer" parent="."]
 offset_right = 40.0

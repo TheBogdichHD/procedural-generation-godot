@@ -1,2 +1,1 @@
-# procedural_generation_godot
- 
+# Godot WFC 3D implementation
